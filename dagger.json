@@ -1,0 +1,6 @@
+{
+  "name": "terraform-module",
+  "sdk": "python",
+  "source": "dagger",
+  "engineVersion": "v0.11.0"
+}
