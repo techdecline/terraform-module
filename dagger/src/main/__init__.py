@@ -40,29 +40,29 @@ class TerraformModule:
             .stdout()
         )
     
-    # @function
-    # async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> dagger.Container:
-    #     return await (
-    #         dag.container()
-    #         .from_("devopsinfra/docker-terragrunt:azure-tf-1.8.0-tg-0.57.0")
-    #         .with_mounted_directory("/mnt", directory_arg)
-    #         .with_mounted_directory("/root/.azure", azauth_directory)
-    #         .with_workdir("mnt/tg_test")
-    #         # .with_exec(["go","mod","init","terratest"])
-    #         # .with_exec(["go","mod","tidy"])
-    #         # .with_exec(["go","test"])
-    #         # .stdout()
-    #     )
     @function
-    async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> str:
+    async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> dagger.Container:
         return await (
             dag.container()
             .from_("devopsinfra/docker-terragrunt:azure-tf-1.8.0-tg-0.57.0")
             .with_mounted_directory("/mnt", directory_arg)
             .with_mounted_directory("/root/.azure", azauth_directory)
             .with_workdir("mnt/tg_test")
-            .with_exec(["go","mod","init","terratest"])
-            .with_exec(["go","mod","tidy"])
-            .with_exec(["go","test"])
-            .stdout()
+            # .with_exec(["go","mod","init","terratest"])
+            # .with_exec(["go","mod","tidy"])
+            # .with_exec(["go","test"])
+            # .stdout()
         )
+    # @function
+    # async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> str:
+    #     return await (
+    #         dag.container()
+    #         .from_("devopsinfra/docker-terragrunt:azure-tf-1.8.0-tg-0.57.0")
+    #         .with_mounted_directory("/mnt", directory_arg)
+    #         .with_mounted_directory("/root/.azure", azauth_directory)
+    #         .with_workdir("mnt/tg_test")
+    #         .with_exec(["go","mod","init","terratest"])
+    #         .with_exec(["go","mod","tidy"])
+    #         .with_exec(["go","test"])
+    #         .stdout()
+    #     )
