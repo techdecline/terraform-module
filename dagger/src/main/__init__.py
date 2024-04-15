@@ -53,7 +53,7 @@ class TerraformModule:
     #         # .with_exec(["go","test"])
     #         # .stdout()
     #     )
-    # @function
+    @function
     async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> str:
         return await (
             dag.container()
