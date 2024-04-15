@@ -48,6 +48,7 @@ class TerraformModule:
             .with_mounted_directory("/mnt", directory_arg)
             .with_mounted_directory("/root/.azure", azauth_directory)
             .with_workdir("mnt/tg_test")
+            .with_exec(["go","mod","init"])
             .with_exec(["go","test"])
             .stdout()
         )
