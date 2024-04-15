@@ -45,6 +45,7 @@ class TerraformModule:
         return await (
             dag.container()
             .from_("devopsinfra/docker-terragrunt:azure-tf-1.8.0-tg-0.57.0")
+            .with_env_variable("TG_AZURERM_PROVIDER_VERSION","3.98.0")
             .with_mounted_directory("/mnt", directory_arg)
             .with_mounted_directory("/root/.azure", azauth_directory)
             .with_workdir("/mnt/tg_test")
