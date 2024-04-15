@@ -50,7 +50,6 @@ class TerraformModule:
             .with_workdir("mnt/tg_test")
             .with_exec(["go","mod","init","terratest"])
             .with_exec(["go","mod","tidy"])
-            .with_exec(["go","mod","terratest"])
             .with_exec(["go","test"])
             .stdout()
         )
