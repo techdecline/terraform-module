@@ -1,36 +1,36 @@
 import requests
 import dagger
 from dagger import dag, function, object_type
+    
+def get_latest_provider_version(provider_name):
+    # Construct the URL for the provider on the Terraform Registry
+    url = f"https://registry.terraform.io/v1/providers/{provider_name}/versions"
+
+    try:
+        # Send a GET request to the Terraform Registry
+        response = requests.get(url)
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Parse the JSON response
+            data = response.json()
+            # Sort versions in descending order
+            sorted_versions = sorted(data['versions'], key=lambda x: x['version'], reverse=True)
+            # Extract the latest version from the response
+            latest_version = sorted_versions[0]['version']
+            return latest_version
+        else:
+            # If the request was not successful, print an error message
+            print(f"Error: Unable to fetch provider version. Status code: {response.status_code}")
+            return None
+    except Exception as e:
+        # If an exception occurs during the request, print an error message
+        print(f"Error: {e}")
+        return None
 
 @object_type
 class TerraformModule:
 
-    @function
-    def get_latest_provider_version(self, provider_name):
-        # Construct the URL for the provider on the Terraform Registry
-        url = f"https://registry.terraform.io/v1/providers/{provider_name}/versions"
-
-        try:
-            # Send a GET request to the Terraform Registry
-            response = requests.get(url)
-
-            # Check if the request was successful
-            if response.status_code == 200:
-                # Parse the JSON response
-                data = response.json()
-                # Sort versions in descending order
-                sorted_versions = sorted(data['versions'], key=lambda x: x['version'], reverse=True)
-                # Extract the latest version from the response
-                latest_version = sorted_versions[0]['version']
-                return latest_version
-            else:
-                # If the request was not successful, print an error message
-                print(f"Error: Unable to fetch provider version. Status code: {response.status_code}")
-                return None
-        except Exception as e:
-            # If an exception occurs during the request, print an error message
-            print(f"Error: {e}")
-            return None
 
     @function
     async def terraform_plan(self, directory_arg: dagger.Directory, azauth_directory: dagger.Directory)-> str:
