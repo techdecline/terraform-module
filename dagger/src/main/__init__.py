@@ -2,6 +2,7 @@ import requests
 import dagger
 from dagger import dag, function, object_type
 
+@function
 def get_latest_provider_version(provider_name):
     # Construct the URL for the provider on the Terraform Registry
     url = f"https://registry.terraform.io/v1/providers/{provider_name}/versions"
@@ -27,7 +28,6 @@ def get_latest_provider_version(provider_name):
         # If an exception occurs during the request, print an error message
         print(f"Error: {e}")
         return None
-
 
 @object_type
 class TerraformModule:
