@@ -41,21 +41,21 @@ class TerraformModule:
             .stdout()
         )
     
-    @function
-    async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> dagger.Container:
-        azurermProviderVersions = ["3.98.00", "2.47.0"]
-        return await (
-            dag.container()
-            .from_("devopsinfra/docker-terragrunt:azure-tf-1.8.0-tg-0.57.0")
-            .with_env_variable("TG_AZURERM_PROVIDER_VERSION","3.98.0")
-            .with_mounted_directory("/mnt", directory_arg)
-            .with_mounted_directory("/root/.azure", azauth_directory)
-            .with_workdir("/mnt/tg_test")
-            # .with_exec(["go","mod","init","terratest"])
-            # .with_exec(["go","mod","tidy"])
-            # .with_exec(["go","test"])
-            # .stdout()
-        )
+    # @function
+    # async def terragrunt_test(self, directory_arg: dagger.Directory,azauth_directory: dagger.Directory)-> dagger.Container:
+    #     azurermProviderVersions = ["3.98.00", "2.47.0"]
+    #     return await (
+    #         dag.container()
+    #         .from_("devopsinfra/docker-terragrunt:azure-tf-1.8.0-tg-0.57.0")
+    #         .with_env_variable("TG_AZURERM_PROVIDER_VERSION","3.98.0")
+    #         .with_mounted_directory("/mnt", directory_arg)
+    #         .with_mounted_directory("/root/.azure", azauth_directory)
+    #         .with_workdir("/mnt/tg_test")
+    #         # .with_exec(["go","mod","init","terratest"])
+    #         # .with_exec(["go","mod","tidy"])
+    #         # .with_exec(["go","test"])
+    #         # .stdout()
+    #     )
         
     @function
     def get_latest_provider_version(provider_name):
